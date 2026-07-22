@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Алюминиевые оконно-дверные системы — ИП Варванский</title>
+    <style>
+        :root {
+            --orange: #e87722;
+            --dark: #1a1a1a;
+            --gray: #555;
+            --light: #fafaf8;
+            --white: #fff;
+            --border: #e8e6e1;
+            --bg: #f5f3ef;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            color: var(--dark);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        /* ===== TOP BAR ===== */
+        .topbar {
+            background: var(--dark);
+            color: #fff;
+            padding: 10px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .topbar .brand { font-weight: 700; letter-spacing: 0.5px; }
+        .topbar .brand span { color: var(--orange); }
+        .topbar .contact-header { color: #aaa; }
+        .topbar .contact-header a { color: var(--orange); text-decoration: none; font-weight: 600; }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(160deg, #0d0d0d 0%, #1f1f1f 60%, #2a2018 100%);
+            color: #fff;
+            padding: 50px 30px 30px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .hero .hero-sub {
+            font-size: 16px;
+            color: #aaa;
+            font-weight: 300;
+            margin-bottom: 8px;
+        }
+        .hero .hero-tags {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+        }
+        .hero .hero-tags span {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #ccc;
+        }
+        .hero .hero-tags span strong { color: var(--orange); }
+
+        /* ===== TAB NAVIGATION ===== */
+        .tab-nav {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+        .tab-btn {
+            padding: 16px 28px;
+            border: none;
+            background: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.25s;
+            border-bottom: 3px solid transparent;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { color: var(--dark); background: var(--light); }
+        .tab-btn.active {
+            color: var(--orange);
+            border-bottom-color: var(--orange);
+        }
+        .tab-btn .tab-badge {
+            display: inline-block;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .tab-badge.premium { background: var(--orange); color: #fff; }
+        .tab-badge.standard { background: #666; color: #fff; }
+        .tab-badge.lift { background: #1a1a1a; color: var(--orange); }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px 60px;
+        }
+
+        /* ===== TAB CONTENT ===== */
+        .tab-content { display: none; animation: fadeIn 0.4s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--white);
+            border-radius: 14px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.05);
+            padding: 36px;
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--dark);
+        }
+        .card h2 .accent { color: var(--orange); }
+        .card .lead {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 18px;
+            line-height: 1.7;
+        }
+
+        /* ===== IMAGE ===== */
+        .image-block {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-block img {
+            max-width: 100%;
+            max-height: 420px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        /* ===== SPECS GRID ===== */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin: 16px 0;
+        }
+        .spec-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            background: var(--light);
+            border-radius: 8px;
+            font-size: 13px;
+        }
+        .spec-item .icon { font-size: 18px; flex-shrink: 0; width: 26px; text-align: center; }
+        .spec-item strong { display: block; font-size: 12px; color: var(--dark); }
+        .spec-item span { color: var(--gray); font-size: 12px; }
+
+        /* ===== GLASS BOX ===== */
+        .glass-box {
+            background: linear-gradient(135deg, #fff9f2, #fef3e6);
+            border: 2px dashed var(--orange);
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin: 16px 0;
+            font-size: 13px;
+            color: var(--gray);
+        }
+        .glass-box .glass-title {
+            font-weight: 700;
+            color: var(--orange);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        .option-badge {
+            display: inline-block;
+            background: var(--orange);
+            color: #fff;
+            padding: 2px 9px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            margin: 4px 0;
+        }
+
+        /* ===== PERF BARS ===== */
+        .perf-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 8px 0;
+        }
+        .perf-label {
+            width: 170px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--dark);
+            text-align: right;
+            flex-shrink: 0;
+        }
+        .perf-bar-bg {
+            flex: 1;
+            height: 8px;
+            background: #e8e6e1;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .perf-bar-fill {
+            height: 100%;
+            background: var(--orange);
+            border-radius: 4px;
+            transition: width 0.6s;
+        }
+        .perf-value {
+            width: 40px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--orange);
+            flex-shrink: 0;
+        }
+
+        /* ===== COLORS ===== */
+        .color-row {
+            display: flex;
+            gap: 16px;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+        .color-swatch { text-align: center; }
+        .color-circle {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            margin-bottom: 3px;
+        }
+        .color-name { font-size: 10px; color: var(--gray); max-width: 60px; }
+
+        /* ===== RANGE BOX ===== */
+        .range-box {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 18px 20px;
+            text-align: center;
+            margin: 14px 0;
+        }
+        .range-bar-bg {
+            height: 8px;
+            background: #e8e6e1;
+            border-radius: 4px;
+            margin: 14px 0;
+        }
+        .range-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--orange), #d4651a);
+            border-radius: 4px;
+            width: 100%;
+        }
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        /* ===== SIZE GRID ===== */
+        .size-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 14px 0;
+        }
+        .size-box {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+        }
+        .size-box .size-label { font-size: 10px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; }
+        .size-box .size-value { font-size: 20px; font-weight: 800; color: var(--orange); }
+
+        /* ===== CTA ===== */
+        .cta {
+            background: linear-gradient(135deg, var(--orange), #d4651a);
+            color: #fff;
+            text-align: center;
+            padding: 28px 30px;
+            border-radius: 14px;
+            margin: 20px 0;
+        }
+        .cta h3 { font-size: 20px; margin-bottom: 6px; }
+        .cta .email { font-size: 18px; font-weight: 700; letter-spacing: 0.5px; }
+        .cta .note { font-size: 12px; opacity: 0.85; margin-top: 4px; }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            font-size: 11px;
+            color: #aaa;
+            padding: 16px 0;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 26px; }
+            .specs-grid { grid-template-columns: 1fr; }
+            .perf-label { width: 110px; font-size: 10px; text-align: left; }
+            .card { padding: 20px; }
+            .tab-btn { padding: 12px 14px; font-size: 12px; }
+            .tab-btn .tab-badge { font-size: 8px; padding: 1px 6px; margin-left: 4px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="topbar">
+    <div class="brand">ИП Варванский &nbsp;|&nbsp; <span>Алюминиевые системы</span></div>
+    <div class="contact-header">📧 <a href="mailto:varvanski@mail.ru">varvanski@mail.ru</a> &nbsp;|&nbsp; 📦 Срок поставки: 2–2,5 месяца</div>
+</div>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+    <h1>Алюминиевые оконно-дверные системы</h1>
+    <p class="hero-sub">Премиальные профили из сплава 6060-T66 с терморазрывом Technoform</p>
+    <div class="hero-tags">
+        <span>Алюминий <strong>6060-T66</strong></span>
+        <span>Терморазрыв <strong>PA66GF25</strong></span>
+        <span>Фурнитура <strong>ROTO / Qasim</strong></span>
+        <span>Стеклопакет <strong>тройной, закалённый + аргон</strong></span>
+        <span>Отделка <strong>антрацит</strong></span>
+    </div>
+</div>
+
+<!-- ===== TAB NAV ===== -->
+<nav class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('dopamine')">
+        DOPHAMINE 90 <span class="tab-badge premium">Премиум</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('xin')">
+        80 XIN SERIES <span class="tab-badge standard">Стандарт</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('lift')">
+        120 LIFT SLIDING <span class="tab-badge lift">Подъёмно-сдвижная</span>
+    </button>
+</nav>
+
+<!-- ===== CONTAINER ===== -->
+<div class="container">
+
+    <!-- ==================== TAB: DOPHAMINE ==================== -->
+    <div id="tab-dopamine" class="tab-content active">
+
+        <div class="card">
+            <h2>О системе <span class="accent">DOPHAMINE 90</span></h2>
+            <p class="lead">
+                Флагманская алюминиевая система с полностью <strong>скрытой створкой</strong>. Профиль шириной 90 мм с терморазрывом PA66GF25 (34 мм) обеспечивает выдающиеся показатели тепло- и звукоизоляции. Благодаря скрытому монтажу створки достигается минималистичный архитектурный облик — снаружи видно только стекло. Идеальное решение для современного дизайна фасада.
+            </p>
+            <div class="image-block">
+                <img src="https://284baef4-3d14-4ca5-8247-4811f0d6b14b.selstorage.ru/d8571e15-b30c-4053-9522-09df40df1d38_Snimok_ekrana_2026-07-20_111626.png" alt="DOPHAMINE SERIES — 90 мм">
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Стеклопакет</h2>
+            <div class="glass-box">
+                <div class="glass-title">🔹 Тройной стеклопакет — закалённое стекло с аргоном</div>
+                <strong>Формула (тройной стеклопакет):</strong> 5 мм Ultra Clear Low-E (закалённое) + 18A (аргон) + 5 мм Ultra Clear (закалённое) + 18A (аргон) + 5 мм Ultra Clear Low-E (закалённое)<br>
+                <strong>Дистанционная рамка:</strong> чёрная алюминиевая, цельно-гнутая<br>
+                <strong>Заполнение:</strong> аргон (инертный газ) в обеих камерах — максимальная теплоизоляция<br>
+                <strong>Стекло:</strong> закалённое (безопасное, ударопрочное), три стекла
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Технические характеристики</h2>
+            <div class="specs-grid">
+                <div class="spec-item"><div class="icon">📏</div><div><strong>Ширина профиля</strong><span>90 мм (скрытая створка)</span></div></div>
+                <div class="spec-item"><div class="icon">🏗️</div><div><strong>Толщина стенки</strong><span>2,0 мм</span></div></div>
+                <div class="spec-item"><div class="icon">🔩</div><div><strong>Алюминиевый сплав</strong><span>6060-T66</span></div></div>
+                <div class="spec-item"><div class="icon">🎨</div><div><strong>Цвет профиля</strong><span>Антрацит (с двух сторон)</span></div></div>
+                <div class="spec-item"><div class="icon">❄️</div><div><strong>Терморазрыв</strong><span>Technoform PA66GF25, 34 мм</span></div></div>
+                <div class="spec-item"><div class="icon">🔧</div><div><strong>Фурнитура</strong><span>ROTO (Германия), ручки HOPPE (Германия)</span></div></div>
+                <div class="spec-item"><div class="icon">🛡️</div><div><strong>Уплотнители</strong><span>EPDM с сердечником из стекловолокна</span></div></div>
+                <div class="spec-item"><div class="icon">🪟</div><div><strong>Способ открывания</strong><span>Поворотно-откидной</span></div></div>
+                <div class="spec-item"><div class="icon">⚖️</div><div><strong>Нагрузка фурнитуры</strong><span>до 130 кг</span></div></div>
+                <div class="spec-item"><div class="icon">🖌️</div><div><strong>Отделка</strong><span>Порошковое напыление (Metal Powder Spraying)</span></div></div>
+            </div>
+        </div>
+
+
+
+        <div class="card">
+            <h2>Доступные цвета</h2>
+            <div class="color-row">
+                <div class="color-swatch"><div class="color-circle" style="background:#c8e6e0;"></div><div class="color-name">Cyan White</div></div>
+                <div class="color-swatch"><div class="color-circle" style="background:#b8d9b0;"></div><div class="color-name">Spring Green</div></div>
+                <div class="color-swatch"><div class="color-circle" style="background:#e8cfc0;"></div><div class="color-name">Watery Cream Pink</div></div>
+            </div>
+            <p style="font-size:11px; color:#aaa; margin-top:6px;">* Цвета выбираются под заказ. Базовое исполнение — антрацит.</p>
+        </div>
+    </div>
+
+    <!-- ==================== TAB: 80 XIN ==================== -->
+    <div id="tab-xin" class="tab-content">
+
+        <div class="card">
+            <h2>О системе <span class="accent">80 XIN</span></h2>
+            <p class="lead">
+                Надёжная алюминиевая система с классической <strong>видимой створкой</strong>. Профиль шириной 80 мм с терморазрывом PA66GF25 (34 мм) — оптимальное решение по соотношению цена/качество. Видимая створка придаёт фасаду традиционный структурированный вид.
+            </p>
+            <div class="image-block">
+                <img src="https://284baef4-3d14-4ca5-8247-4811f0d6b14b.selstorage.ru/3b0f9c07-a428-4501-9f8d-c936605ae231_ksin_80.png" alt="80 XIN SERIES — 80 мм">
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Стеклопакет</h2>
+            <div class="glass-box">
+                <div class="glass-title">🔹 Тройной стеклопакет — закалённое стекло с аргоном</div>
+                <strong>Формула (тройной стеклопакет):</strong> 5 мм Ultra Clear Low-E (закалённое) + 18A (аргон, технология 4SG) + 5 мм Ultra Clear (закалённое) + 18A (аргон, технология 4SG) + 5 мм Ultra Clear Low-E (закалённое)<br>
+                <strong>Заполнение:</strong> аргон (инертный газ) в обеих камерах — максимальная теплоизоляция<br>
+                <strong>Стекло:</strong> закалённое (безопасное, ударопрочное), три стекла
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Технические характеристики</h2>
+            <div class="specs-grid">
+                <div class="spec-item"><div class="icon">📏</div><div><strong>Ширина профиля</strong><span>80 мм (видимая створка)</span></div></div>
+                <div class="spec-item"><div class="icon">🏗️</div><div><strong>Толщина стенки</strong><span>2,0 мм</span></div></div>
+                <div class="spec-item"><div class="icon">🔩</div><div><strong>Алюминиевый сплав</strong><span>6060-T66</span></div></div>
+                <div class="spec-item"><div class="icon">🎨</div><div><strong>Цвет профиля</strong><span>Антрацит (с двух сторон)</span></div></div>
+                <div class="spec-item"><div class="icon">❄️</div><div><strong>Терморазрыв</strong><span>Technoform PA66GF25, 34 мм</span></div></div>
+                <div class="spec-item"><div class="icon">🔧</div><div><strong>Фурнитура</strong><span>ROTO (Германия), ручки HOPPE (Германия)</span></div></div>
+                <div class="spec-item"><div class="icon">🛡️</div><div><strong>Уплотнители</strong><span>EPDM с сердечником из стекловолокна</span></div></div>
+                <div class="spec-item"><div class="icon">🪟</div><div><strong>Способ открывания</strong><span>Поворотно-откидной</span></div></div>
+                <div class="spec-item"><div class="icon">⚖️</div><div><strong>Нагрузка фурнитуры</strong><span>до 130 кг</span></div></div>
+                <div class="spec-item"><div class="icon">🖌️</div><div><strong>Отделка</strong><span>Порошковое напыление (Metal Powder Spraying)</span></div></div>
+            </div>
+        </div>
+
+
+
+        <div class="card">
+            <h2>Доступные цвета</h2>
+            <div class="color-row">
+                <div class="color-swatch"><div class="color-circle" style="background:#7a7a7a;"></div><div class="color-name">Berlin Sparkles Silver Grey</div></div>
+                <div class="color-swatch"><div class="color-circle" style="background:#6b4f3c;"></div><div class="color-name">Flash Silver Coffee</div></div>
+            </div>
+            <p style="font-size:11px; color:#aaa; margin-top:6px;">* Цвета выбираются под заказ. Базовое исполнение — антрацит.</p>
+        </div>
+    </div>
+
+    <!-- ==================== TAB: 120 LIFT SLIDING ==================== -->
+    <div id="tab-lift" class="tab-content">
+
+        <div class="card">
+            <h2>О системе <span class="accent">120 LIFT SLIDING</span></h2>
+            <p class="lead">
+                Премиальная <strong>подъёмно-сдвижная</strong> алюминиевая система для панорамного остекления. Профиль шириной 120 мм с терморазрывом PA66GF25 (14,8 мм) сочетает выдающуюся жёсткость конструкции с отличными теплоизоляционными свойствами. Специальная подъёмно-сдвижная фурнитура Qasim обеспечивает плавный ход створок массой до 400 кг. Идеальное решение для больших проёмов и панорамных видов.
+            </p>
+            <div class="image-block">
+                <img src="https://284baef4-3d14-4ca5-8247-4811f0d6b14b.selstorage.ru/1be1c485-f6a8-4673-ad6c-7a2273767530_Snimok_ekrana_2026-07-20_121116.png" alt="120 LIFT SLIDING DOOR — 120 мм">
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Грузоподъёмность фурнитуры</h2>
+            <div class="range-box">
+                <p style="font-size:13px; color:var(--gray);">
+                    Специальная подъёмно-сдвижная фурнитура <strong>Qasim Brand</strong> рассчитана на створки весом:
+                </p>
+                <div class="range-bar-bg"><div class="range-bar-fill"></div></div>
+                <div class="range-labels">
+                    <span>150 кг</span><span>250 кг</span><span>400 кг</span>
+                </div>
+                <p style="margin-top:10px; font-size:12px; color:var(--gray);">
+                    Обеспечивает лёгкое и плавное открывание даже самых массивных конструкций.
+                </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Стеклопакет</h2>
+            <div class="glass-box">
+                <div class="glass-title">🔹 Двойной стеклопакет — закалённое стекло с аргоном</div>
+                <strong>Формула (тройной стеклопакет):</strong> 5 мм Ultra Clear Low-E (закалённое) + 18A (аргон, технология 4SG) + 5 мм Ultra Clear (закалённое) + 18A (аргон, технология 4SG) + 5 мм Ultra Clear Low-E (закалённое)<br>
+                <strong>Заполнение:</strong> аргон (инертный газ) в обеих камерах — максимальная теплоизоляция<br>
+                <strong>Стекло:</strong> закалённое (безопасное, ударопрочное), три стекла
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Технические характеристики</h2>
+            <div class="specs-grid">
+                <div class="spec-item"><div class="icon">📏</div><div><strong>Ширина профиля</strong><span>120 мм (подъёмно-сдвижная)</span></div></div>
+                <div class="spec-item"><div class="icon">🏗️</div><div><strong>Толщина стенки</strong><span>2,0 мм</span></div></div>
+                <div class="spec-item"><div class="icon">🔩</div><div><strong>Алюминиевый сплав</strong><span>6060-T66</span></div></div>
+                <div class="spec-item"><div class="icon">🎨</div><div><strong>Цвет профиля</strong><span>Антрацит (с двух сторон)</span></div></div>
+                <div class="spec-item"><div class="icon">❄️</div><div><strong>Терморазрыв</strong><span>Technoform PA66GF25, 14,8 мм</span></div></div>
+                <div class="spec-item"><div class="icon">🔧</div><div><strong>Фурнитура</strong><span>Qasim Brand (подъёмно-сдвижная, инд. изготовление)</span></div></div>
+                <div class="spec-item"><div class="icon">🛡️</div><div><strong>Уплотнители</strong><span>EPDM с сердечником из стекловолокна</span></div></div>
+                <div class="spec-item"><div class="icon">🪟</div><div><strong>Способ открывания</strong><span>Подъёмно-сдвижной (Lifting)</span></div></div>
+                <div class="spec-item"><div class="icon">🖌️</div><div><strong>Отделка</strong><span>Порошковое напыление (Metal Powder Spraying)</span></div></div>
+                <div class="spec-item"><div class="icon">🔖</div><div><strong>Аксессуары</strong><span>Qasim Logo-Equipped Accessories</span></div></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Допустимые размеры створок</h2>
+            <div class="size-grid">
+                <div class="size-box">
+                    <div class="size-label">Минимальные</div>
+                    <div class="size-value">600 × 1800</div>
+                    <div style="font-size:10px; color:var(--gray);">мм</div>
+                </div>
+                <div class="size-box">
+                    <div class="size-label">Максимальные</div>
+                    <div class="size-value">2000 × 3000</div>
+                    <div style="font-size:10px; color:var(--gray);">мм</div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="card">
+            <h2>Доступные цвета</h2>
+            <div class="color-row">
+                <div class="color-swatch"><div class="color-circle" style="background:#7a7a7a;"></div><div class="color-name">Berlin Sparkles Silver Grey</div></div>
+                <div class="color-swatch"><div class="color-circle" style="background:#6b4f3c;"></div><div class="color-name">Flash Silver Coffee</div></div>
+            </div>
+            <p style="font-size:11px; color:#aaa; margin-top:6px;">* Цвета выбираются под заказ. Базовое исполнение — антрацит.</p>
+        </div>
+    </div>
+
+    
+<!-- ===== CTA ===== -->
+    <div class="cta">
+        <h3>Заинтересованы? Свяжитесь с нами</h3>
+        <p class="email">varvanski@mail.ru</p>
+        <p class="note">📦 Срок поставки: 2–2,5 месяца &nbsp;|&nbsp; Налог АУСН 8% включён в стоимость &nbsp;|&nbsp; Монтаж рассчитывается индивидуально</p>
+    </div>
+
+    <div class="footer">
+        <p>ИП Варванский &nbsp;|&nbsp; Алюминиевые оконно-дверные системы &nbsp;|&nbsp; DOPHAMINE · 80 XIN · 120 LIFT SLIDING</p>
+        <p>Все стеклопакеты — закалённое стекло с аргоновым заполнением. Отделка — антрацит, порошковое напыление.</p>
+    </div>
+</div>
+
+<script>
+function switchTab(tabName) {
+    // Hide all tabs
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    // Deactivate all buttons
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    // Show selected
+    document.getElementById('tab-' + tabName).classList.add('active');
+    // Activate corresponding button
+    const buttons = document.querySelectorAll('.tab-btn');
+    if (tabName === 'dopamine') buttons[0].classList.add('active');
+    if (tabName === 'xin') buttons[1].classList.add('active');
+    if (tabName === 'lift') buttons[2].classList.add('active');
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
